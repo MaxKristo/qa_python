@@ -73,31 +73,31 @@ class TestBooksCollector:
     def test_get_books_with_specific_genre_empty(self, collector):
         assert collector.get_books_with_specific_genre('Фантастика') == []
 
-    def test_get_books_for_children_list_is_empty(self, collector, add_book, add_genre):
-        add_book('Туман')
-        add_genre('Туман', 'Ужасы')
+    def test_get_books_for_children_list_is_empty(self, collector):
+        collector.add_new_book('Туман')
+        collector.set_book_genre('Туман', 'Ужасы')
         assert 'Туман' not in collector.get_books_for_children()
 
-    def test_get_books_for_children_list_is_not_empty(self, collector, add_book, add_genre):
-        add_book('Приключения Незнайки')
-        add_genre('Приключения Незнайки', 'Мультфильмы')
+    def test_get_books_for_children_list_is_not_empty(self, collector):
+        collector.add_new_book('Приключения Незнайки')
+        collector.set_book_genre('Приключения Незнайки', 'Мультфильмы')
         assert 'Приключения Незнайки' in collector.get_books_for_children()
 
-    def test_add_book_in_favorites(self, collector, add_book, add_to_favorites):
-        add_book('Капитан Немо')
-        add_to_favorites('Капитан Немо')
+    def test_add_book_in_favorites(self, collector):
+        collector.add_new_book('Капитан Немо')
+        collector.add_book_in_favorites('Капитан Немо')
         assert 'Капитан Немо' in collector.get_list_of_favorites_books()
 
-    def test_add_book_in_favorites_duplicate(self, collector, add_book, add_to_favorites):
-        add_book('Сто лет тому вперёд')
-        add_to_favorites('Сто лет тому вперёд')
-        add_to_favorites('Сто лет тому вперёд')
+    def test_add_book_in_favorites_duplicate(self, collector):
+        collector.add_new_book('Сто лет тому вперёд')
+        collector.add_book_in_favorites('Сто лет тому вперёд')
+        collector.add_book_in_favorites('Сто лет тому вперёд')
         assert len(collector.get_list_of_favorites_books()) == 1
 
-    def test_delete_book_from_favorites(self, collector, add_book, add_to_favorites, delete_from_favorites):
-        add_book('Шерлок Холмс')
-        add_to_favorites('Шерлок Холмс')
-        delete_from_favorites('Шерлок Холмс')
+    def test_delete_book_from_favorites(self, collector):
+        collector.add_new_book('Шерлок Холмс')
+        collector.add_book_in_favorites('Шерлок Холмс')
+        collector.delete_book_from_favorites('Шерлок Холмс')
         assert 'Шерлок Холмс' not in collector.get_list_of_favorites_books()
 
 
