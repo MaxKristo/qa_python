@@ -60,7 +60,6 @@ class TestBooksCollector:
         collector.books_genre['Три товарища'] = 'Роман'
         assert collector.get_book_genre('Три товарища') == 'Роман'
 
-
     def test_get_books_genre(self, collector):
         collector.books_genre['Дракула'] = 'Ужасы'
         assert collector.get_books_genre() == {'Дракула': 'Ужасы'}
@@ -75,7 +74,6 @@ class TestBooksCollector:
     def test_get_books_with_specific_genre_invalid_genre(self, collector):
         collector.books_genre['Чемодан'] = 'Комедии'
         assert collector.get_books_with_specific_genre('Драмма') == []
-
 
     def test_get_books_with_specific_genre(self, collector):
         collector.books_genre['Азазель'] = 'Детективы'
@@ -104,14 +102,11 @@ class TestBooksCollector:
         collector.add_book_in_favorites('Сто лет тому вперёд')
         assert len(collector.get_list_of_favorites_books()) == 1
 
-
     def test_delete_book_from_favorites(self, collector):
         collector.books_genre['Шерлок Холмс'] = ''
         collector.add_book_in_favorites('Шерлок Холмс')
         collector.delete_book_from_favorites('Шерлок Холмс')
         assert 'Шерлок Холмс' not in collector.get_list_of_favorites_books()
-
-
 
     def test_get_list_of_favorites_books_empty(self, collector):
         assert collector.get_list_of_favorites_books() == []
@@ -128,6 +123,3 @@ class TestBooksCollector:
         collector.books_genre[name] = genre
         collector.add_book_in_favorites(name)
         assert name in collector.get_list_of_favorites_books()
-
-
-
